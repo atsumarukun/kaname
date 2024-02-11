@@ -24,3 +24,13 @@ func FromEntity(entity *entities.Computer) *Computer {
 		MACAddress: entity.MACAddress,
 	}
 }
+
+func FromEntities(entities *[]entities.Computer) *[]Computer {
+	var computers []Computer
+
+	for _, entity := range *entities {
+		computers = append(computers, *FromEntity(&entity))
+	}
+
+	return &computers
+}

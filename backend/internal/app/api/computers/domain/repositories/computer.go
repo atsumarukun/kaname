@@ -2,6 +2,7 @@ package repositories
 
 import (
 	"backend/internal/app/api/computers/domain/entities"
+	"backend/internal/app/api/database"
 
 	"gorm.io/gorm"
 )
@@ -11,4 +12,5 @@ type ComputerRepository interface {
 	Update(*gorm.DB, *entities.Computer) error
 	Delete(*gorm.DB, *entities.Computer) error
 	FindOneById(*gorm.DB, *entities.Computer, uint) error
+	Find(*gorm.DB, *[]entities.Computer, *database.Options) error
 }

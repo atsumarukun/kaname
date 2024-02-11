@@ -14,6 +14,7 @@ type ComputerUsecase interface {
 	Update(uint, requests.UpdateComputerInput) (*entities.Computer, error)
 	Delete(uint) (*entities.Computer, error)
 	Get(uint) (*entities.Computer, error)
+	Search(*requests.SearchComputersQuery) (*[]entities.Computer, error)
 }
 
 type computerUsecase struct {
@@ -90,4 +91,28 @@ func (cu computerUsecase) Get(id uint) (*entities.Computer, error) {
 	}
 
 	return &computer, nil
+}
+
+func (cu computerUsecase) Search(query *requests.SearchComputersQuery) (*[]entities.Computer, error) {
+	var computers []entities.Computer
+	db := database.Get()
+
+	operator := func(s *string, d string) string {
+		if s != nil {
+			return *s
+		} else {
+			return d
+		}
+	}
+
+	options := database.Options{
+		Sort:  operator(query.Sort, "updated_at"),
+		Order: operator(query.Order, "desc"),
+	}
+
+	if err := cu.computerRepository.Find(db, &computers, &options); err != nil {
+		return nil, err
+	}
+
+	return &computers, nil
 }

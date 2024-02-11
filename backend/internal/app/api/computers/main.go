@@ -14,6 +14,7 @@ func AddComputerRoutes(rg *gin.RouterGroup) {
 	computerHandler := handlers.NewComputerHandler(computerUsecase)
 
 	r := rg.Group("computers")
+	r.GET("/", computerHandler.SearchComputers)
 	r.POST("/", computerHandler.CreateComputer)
 	r.GET("/:id", computerHandler.GetComputer)
 	r.PUT("/:id", computerHandler.UpdateComputer)

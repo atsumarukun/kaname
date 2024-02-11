@@ -15,6 +15,7 @@ type ComputerHandler interface {
 	UpdateComputer(*gin.Context)
 	DeleteComputer(*gin.Context)
 	GetComputer(*gin.Context)
+	SearchComputers(*gin.Context)
 }
 
 type computerHandler struct {
@@ -95,4 +96,20 @@ func (ch computerHandler) GetComputer(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"data": responses.FromEntity(entity)})
+}
+
+func (ch computerHandler) SearchComputers(c *gin.Context) {
+	var query requests.SearchComputersQuery
+	if err := c.ShouldBindQuery(&query); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	entities, err := ch.computerUsecase.Search(&query)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": responses.FromEntities(entities)})
 }
