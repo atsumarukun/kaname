@@ -36,7 +36,7 @@ func (ch computerHandler) CreateComputer(c *gin.Context) {
 
 	entity, err := ch.computerUsecase.Create(input)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -58,7 +58,7 @@ func (ch computerHandler) UpdateComputer(c *gin.Context) {
 
 	entity, err := ch.computerUsecase.Update(uint(id), input)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -74,7 +74,7 @@ func (ch computerHandler) DeleteComputer(c *gin.Context) {
 
 	entity, err := ch.computerUsecase.Delete(uint(id))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -90,7 +90,7 @@ func (ch computerHandler) GetComputer(c *gin.Context) {
 
 	entity, err := ch.computerUsecase.Get(uint(id))
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
 
