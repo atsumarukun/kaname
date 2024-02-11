@@ -5,12 +5,14 @@ import (
 	"backend/internal/app/api/computers/interface/responses"
 	"backend/internal/app/api/computers/usecases"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
 
 type ComputerHandler interface {
 	CreateComputer(*gin.Context)
+	UpdateComputer(*gin.Context)
 }
 
 type computerHandler struct {
@@ -31,6 +33,28 @@ func (ch computerHandler) CreateComputer(c *gin.Context) {
 	}
 
 	entity, err := ch.computerUsecase.Create(input)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": responses.FromEntity(entity)})
+}
+
+func (ch computerHandler) UpdateComputer(c *gin.Context) {
+	var input requests.UpdateComputerInput
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	entity, err := ch.computerUsecase.Update(uint(id), input)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

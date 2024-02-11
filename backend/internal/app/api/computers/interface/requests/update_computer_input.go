@@ -5,25 +5,25 @@ import (
 	"github.com/go-ozzo/ozzo-validation/is"
 )
 
-type CreateComputerInput struct {
+type UpdateComputerInput struct {
 	HostName   string `json:"host_name"`
 	IPAddress  string `json:"ip_address"`
 	MACAddress string `json:"mac_address"`
 }
 
-func (cci CreateComputerInput) Validate() error {
-	return validation.ValidateStruct(&cci,
+func (uci UpdateComputerInput) Validate() error {
+	return validation.ValidateStruct(&uci,
 		validation.Field(
-			&cci.HostName,
+			&uci.HostName,
 			validation.Required.Error("Host name is required"),
 		),
 		validation.Field(
-			&cci.IPAddress,
+			&uci.IPAddress,
 			validation.Required.Error("IP address is required"),
 			is.IP.Error("Invalid IP address"),
 		),
 		validation.Field(
-			&cci.MACAddress,
+			&uci.MACAddress,
 			validation.Required.Error("MAC address is required"),
 			is.MAC.Error("Invalid MAC address"),
 		),

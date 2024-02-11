@@ -11,6 +11,7 @@ import (
 
 type ComputerUsecase interface {
 	Create(requests.CreateComputerInput) (*entities.Computer, error)
+	Update(uint, requests.UpdateComputerInput) (*entities.Computer, error)
 }
 
 type computerUsecase struct {
@@ -26,13 +27,34 @@ func NewComputerUsecase(cr repositories.ComputerRepository) ComputerUsecase {
 func (cu computerUsecase) Create(input requests.CreateComputerInput) (*entities.Computer, error) {
 	db := database.Get()
 	computer := entities.Computer{
-		HostName: input.HostName,
-		IPAddress: input.IPAddress,
+		HostName:   input.HostName,
+		IPAddress:  input.IPAddress,
 		MACAddress: input.MACAddress,
 	}
 
-	if err := db.Transaction(func (tx *gorm.DB) error {
+	if err := db.Transaction(func(tx *gorm.DB) error {
 		return cu.computerRepository.Create(tx, &computer)
+	}); err != nil {
+		return nil, err
+	}
+
+	return &computer, nil
+}
+
+func (cu computerUsecase) Update(id uint, input requests.UpdateComputerInput) (*entities.Computer, error) {
+	var computer entities.Computer
+	db := database.Get()
+
+	if err := db.Transaction(func(tx *gorm.DB) error {
+		if err := cu.computerRepository.FindOneById(tx, &computer, id); err != nil {
+			return err
+		}
+
+		computer.HostName = input.HostName
+		computer.IPAddress = input.IPAddress
+		computer.MACAddress = input.MACAddress
+
+		return cu.computerRepository.Update(tx, &computer)
 	}); err != nil {
 		return nil, err
 	}

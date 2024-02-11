@@ -8,4 +8,6 @@ import (
 
 type ComputerRepository interface {
 	Create(*gorm.DB, *entities.Computer) error
+	Update(*gorm.DB, *entities.Computer) error
+	FindOneById(*gorm.DB, *entities.Computer, uint) error
 }
