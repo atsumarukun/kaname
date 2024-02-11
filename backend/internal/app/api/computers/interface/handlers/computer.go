@@ -14,6 +14,7 @@ type ComputerHandler interface {
 	CreateComputer(*gin.Context)
 	UpdateComputer(*gin.Context)
 	DeleteComputer(*gin.Context)
+	GetComputer(*gin.Context)
 }
 
 type computerHandler struct {
@@ -72,6 +73,22 @@ func (ch computerHandler) DeleteComputer(c *gin.Context) {
 	}
 
 	entity, err := ch.computerUsecase.Delete(uint(id))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"data": responses.FromEntity(entity)})
+}
+
+func (ch computerHandler) GetComputer(c *gin.Context) {
+	id, err := strconv.ParseUint(c.Param("id"), 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	entity, err := ch.computerUsecase.Get(uint(id))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return

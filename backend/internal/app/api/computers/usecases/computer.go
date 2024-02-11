@@ -13,6 +13,7 @@ type ComputerUsecase interface {
 	Create(requests.CreateComputerInput) (*entities.Computer, error)
 	Update(uint, requests.UpdateComputerInput) (*entities.Computer, error)
 	Delete(uint) (*entities.Computer, error)
+	Get(uint) (*entities.Computer, error)
 }
 
 type computerUsecase struct {
@@ -74,6 +75,17 @@ func (cu computerUsecase) Delete(id uint) (*entities.Computer, error) {
 
 		return cu.computerRepository.Delete(tx, &computer)
 	}); err != nil {
+		return nil, err
+	}
+
+	return &computer, nil
+}
+
+func (cu computerUsecase) Get(id uint) (*entities.Computer, error) {
+	var computer entities.Computer
+	db := database.Get()
+
+	if err := cu.computerRepository.FindOneById(db, &computer, id); err != nil {
 		return nil, err
 	}
 
