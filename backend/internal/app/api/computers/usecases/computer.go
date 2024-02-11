@@ -12,6 +12,7 @@ import (
 type ComputerUsecase interface {
 	Create(requests.CreateComputerInput) (*entities.Computer, error)
 	Update(uint, requests.UpdateComputerInput) (*entities.Computer, error)
+	Delete(uint) (*entities.Computer, error)
 }
 
 type computerUsecase struct {
@@ -55,6 +56,23 @@ func (cu computerUsecase) Update(id uint, input requests.UpdateComputerInput) (*
 		computer.MACAddress = input.MACAddress
 
 		return cu.computerRepository.Update(tx, &computer)
+	}); err != nil {
+		return nil, err
+	}
+
+	return &computer, nil
+}
+
+func (cu computerUsecase) Delete(id uint) (*entities.Computer, error) {
+	var computer entities.Computer
+	db := database.Get()
+
+	if err := db.Transaction(func(tx *gorm.DB) error {
+		if err := cu.computerRepository.FindOneById(tx, &computer, id); err != nil {
+			return err
+		}
+
+		return cu.computerRepository.Delete(tx, &computer)
 	}); err != nil {
 		return nil, err
 	}

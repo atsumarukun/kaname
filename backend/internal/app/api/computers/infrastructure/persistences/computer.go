@@ -21,6 +21,10 @@ func (_ computerPersistence) Update(db *gorm.DB, computer *entities.Computer) er
 	return db.Save(computer).Error
 }
 
+func (_ computerPersistence) Delete(db *gorm.DB, computer *entities.Computer) error {
+	return db.Unscoped().Delete(computer).Error
+}
+
 func (_ computerPersistence) FindOneById(db *gorm.DB, computer *entities.Computer, id uint) error {
 	return db.First(&computer, id).Error
 }
