@@ -91,7 +91,7 @@ func (ch computerHandler) GetComputer(c *gin.Context) {
 
 	entity, err := ch.computerUsecase.Get(uint(id))
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
 		return
 	}
 
