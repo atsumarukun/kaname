@@ -1,6 +1,10 @@
 package routes
 
-import "github.com/gin-gonic/gin"
+import (
+	"backend/internal/app/api/computers"
+
+	"github.com/gin-gonic/gin"
+)
 
 var router = gin.Default()
 
@@ -17,9 +21,5 @@ func getApiRoutes() {
 func addV1Routes(rg *gin.RouterGroup) {
 	v1 := rg.Group("v1")
 
-	v1.GET("/", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello World!",
-		})
-	})
+	computers.AddComputerRoutes(v1)
 }
