@@ -5,8 +5,7 @@ services:
     build:
       context: ./backend/build/package
       dockerfile: Dockerfile.local
-    ports:
-      - 8000:8000
+    network_mode: host
     volumes:
       - .:/go/src
     working_dir: /go/src/backend

@@ -4,6 +4,7 @@ import (
 	"backend/internal/app/api/computers/domain/entities"
 	"backend/internal/app/api/computers/domain/repositories"
 	"backend/internal/app/api/computers/interface/requests"
+	"backend/internal/app/api/computers/pkg/wol"
 	"backend/internal/app/api/database"
 
 	"gorm.io/gorm"
@@ -13,6 +14,7 @@ type ComputerUsecase interface {
 	Create(requests.CreateComputerInput) (*entities.Computer, error)
 	Update(uint, requests.UpdateComputerInput) (*entities.Computer, error)
 	Delete(uint) (*entities.Computer, error)
+	Wake(uint) (*entities.Computer, error)
 	Get(uint) (*entities.Computer, error)
 	Search(*requests.SearchComputersQuery) (*[]entities.Computer, error)
 }
@@ -76,6 +78,21 @@ func (cu computerUsecase) Delete(id uint) (*entities.Computer, error) {
 
 		return cu.computerRepository.Delete(tx, &computer)
 	}); err != nil {
+		return nil, err
+	}
+
+	return &computer, nil
+}
+
+func (cu computerUsecase) Wake(id uint) (*entities.Computer, error) {
+	var computer entities.Computer
+	db := database.Get()
+
+	if err := cu.computerRepository.FindOneById(db, &computer, id); err != nil {
+		return nil, err
+	}
+
+	if err := wol.Wake(computer.IPAddress, computer.MACAddress); err != nil {
 		return nil, err
 	}
 
