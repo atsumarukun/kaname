@@ -4,6 +4,7 @@ import (
 	"backend/internal/app/api/pkg/config"
 	"fmt"
 
+	"github.com/DATA-DOG/go-sqlmock"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -22,11 +23,23 @@ func init() {
 		config.DatabasePort,
 		config.DatabaseTimeZone,
 	)
-	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{}); if err != nil {
+	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
 		panic(err.Error())
 	}
 }
 
 func Get() *gorm.DB {
 	return db
+}
+
+func GetMock() (*gorm.DB, sqlmock.Sqlmock, error) {
+	sqlDB, mock, err := sqlmock.New()
+	if err != nil {
+		return nil, mock, err
+	}
+
+	db, err := gorm.Open(postgres.New(postgres.Config{Conn: sqlDB}), &gorm.Config{})
+
+	return db, mock, err
 }

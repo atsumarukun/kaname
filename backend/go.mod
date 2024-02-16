@@ -3,6 +3,7 @@ module backend
 go 1.20
 
 require (
+	github.com/DATA-DOG/go-sqlmock v1.5.2
 	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2 // indirect
 	github.com/bytedance/sonic v1.10.2 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
@@ -44,6 +45,6 @@ require (
 	golang.org/x/text v0.14.0 // indirect
 	google.golang.org/protobuf v1.32.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/postgres v1.5.4 // indirect
-	gorm.io/gorm v1.25.6 // indirect
+	gorm.io/driver/postgres v1.5.6 // indirect
+	gorm.io/gorm v1.25.7-0.20240204074919-46816ad31dde // indirect
 )
