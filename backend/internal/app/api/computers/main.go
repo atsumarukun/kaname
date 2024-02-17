@@ -2,16 +2,24 @@ package computers
 
 import (
 	"backend/internal/app/api/computers/infrastructure/persistences"
+	"backend/internal/app/api/computers/infrastructure/temporaries"
 	"backend/internal/app/api/computers/interface/handlers"
 	"backend/internal/app/api/computers/usecases"
 	"backend/internal/app/api/database"
 
 	"github.com/gin-gonic/gin"
+	"github.com/mdlayher/wol"
 )
 
 func AddComputerRoutes(rg *gin.RouterGroup) {
+	wolClient, err := wol.NewClient()
+	if err != nil {
+		panic(err.Error())
+	}
+
+	computerTemporary := temporaries.NewComputerTemporary(wolClient)
 	computerPersistence := persistences.NewComputerPersistence()
-	computerUsecase := usecases.NewComputerUsecase(computerPersistence, database.Get())
+	computerUsecase := usecases.NewComputerUsecase(computerTemporary, computerPersistence, database.Get())
 	computerHandler := handlers.NewComputerHandler(computerUsecase)
 
 	r := rg.Group("computers")

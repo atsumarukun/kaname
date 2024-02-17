@@ -1,11 +1,14 @@
 package usecases
 
 import (
+	"backend/internal/app/api/computers/domain/clients"
 	"backend/internal/app/api/computers/domain/entities"
 	"backend/internal/app/api/computers/domain/repositories"
 	"backend/internal/app/api/computers/interface/requests"
-	"backend/internal/app/api/computers/pkg/wol"
 	"backend/internal/app/api/database"
+	"fmt"
+	"net"
+	"net/netip"
 
 	"gorm.io/gorm"
 )
@@ -20,12 +23,14 @@ type ComputerUsecase interface {
 }
 
 type computerUsecase struct {
+	computerClient     clients.ComputerClient
 	computerRepository repositories.ComputerRepository
 	db                 *gorm.DB
 }
 
-func NewComputerUsecase(cr repositories.ComputerRepository, db *gorm.DB) ComputerUsecase {
+func NewComputerUsecase(cc clients.ComputerClient, cr repositories.ComputerRepository, db *gorm.DB) ComputerUsecase {
 	return &computerUsecase{
+		computerClient:     cc,
 		computerRepository: cr,
 		db:                 db,
 	}
@@ -90,7 +95,17 @@ func (cu computerUsecase) Wake(id uint) (*entities.Computer, error) {
 		return nil, err
 	}
 
-	if err := wol.Wake(computer.IPAddress, computer.MACAddress); err != nil {
+	macAddress, err := net.ParseMAC(computer.MACAddress)
+	if err != nil {
+		return nil, err
+	}
+
+	ipAddress := computer.IPAddress
+	if netip.MustParseAddr(computer.IPAddress).IsPrivate() {
+		ipAddress = "255.255.255.255"
+	}
+
+	if err := cu.computerClient.Wake(fmt.Sprintf("%s:9", ipAddress), macAddress); err != nil {
 		return nil, err
 	}
 
