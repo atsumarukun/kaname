@@ -1,0 +1,10 @@
+FROM golang:1.20-alpine as build
+COPY . /go/src/backend
+WORKDIR /go/src/backend/cmd/api
+RUN go build
+
+FROM golang:1.20-alpine as exec
+COPY --from=build /go/src/backend/cmd/api/api /go/src/backend/api
+COPY ./.env /go/src/backend/.env
+WORKDIR /go/src/backend
+CMD ["./api"]
