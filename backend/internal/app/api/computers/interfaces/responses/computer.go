@@ -1,7 +1,7 @@
 package responses
 
 import (
-	"backend/internal/app/api/computers/domain/entities"
+	"backend/internal/app/api/computers/domains/entities"
 	"time"
 )
 

@@ -5,7 +5,7 @@
 package mock_repositories
 
 import (
-	entities "backend/internal/app/api/computers/domain/entities"
+	entities "backend/internal/app/api/computers/domains/entities"
 	database "backend/internal/app/api/database"
 	reflect "reflect"
 

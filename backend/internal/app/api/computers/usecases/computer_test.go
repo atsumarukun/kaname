@@ -1,8 +1,8 @@
 package usecases
 
 import (
-	"backend/internal/app/api/computers/domain/entities"
-	"backend/internal/app/api/computers/interface/requests"
+	"backend/internal/app/api/computers/domains/entities"
+	"backend/internal/app/api/computers/interfaces/requests"
 	mock_clients "backend/internal/app/api/computers/mocks/clients"
 	mock_repositories "backend/internal/app/api/computers/mocks/repositories"
 	"backend/internal/app/api/database"

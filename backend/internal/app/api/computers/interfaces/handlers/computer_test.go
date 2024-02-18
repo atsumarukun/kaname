@@ -1,9 +1,9 @@
 package handlers
 
 import (
-	"backend/internal/app/api/computers/domain/entities"
-	"backend/internal/app/api/computers/interface/requests"
-	"backend/internal/app/api/computers/interface/responses"
+	"backend/internal/app/api/computers/domains/entities"
+	"backend/internal/app/api/computers/interfaces/requests"
+	"backend/internal/app/api/computers/interfaces/responses"
 	mock_usecases "backend/internal/app/api/computers/mocks/usecases"
 	"bytes"
 	"encoding/json"

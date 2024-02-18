@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"backend/internal/app/api/computers/interface/requests"
-	"backend/internal/app/api/computers/interface/responses"
+	"backend/internal/app/api/computers/interfaces/requests"
+	"backend/internal/app/api/computers/interfaces/responses"
 	"backend/internal/app/api/computers/usecases"
 	"net/http"
 	"strconv"

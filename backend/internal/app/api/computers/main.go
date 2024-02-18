@@ -1,9 +1,9 @@
 package computers
 
 import (
-	"backend/internal/app/api/computers/infrastructure/persistences"
-	"backend/internal/app/api/computers/infrastructure/temporaries"
-	"backend/internal/app/api/computers/interface/handlers"
+	"backend/internal/app/api/computers/infrastructures/persistences"
+	"backend/internal/app/api/computers/infrastructures/temporaries"
+	"backend/internal/app/api/computers/interfaces/handlers"
 	"backend/internal/app/api/computers/usecases"
 	"backend/internal/app/api/database"
 

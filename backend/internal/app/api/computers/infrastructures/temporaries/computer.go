@@ -1,7 +1,7 @@
 package temporaries
 
 import (
-	"backend/internal/app/api/computers/domain/clients"
+	"backend/internal/app/api/computers/domains/clients"
 	"net"
 
 	"github.com/mdlayher/wol"

@@ -1,7 +1,7 @@
 package persistences
 
 import (
-	"backend/internal/app/api/computers/domain/entities"
+	"backend/internal/app/api/computers/domains/entities"
 	"backend/internal/app/api/database"
 	"fmt"
 	"regexp"

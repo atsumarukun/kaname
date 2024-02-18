@@ -1,8 +1,8 @@
 package persistences
 
 import (
-	"backend/internal/app/api/computers/domain/entities"
-	"backend/internal/app/api/computers/domain/repositories"
+	"backend/internal/app/api/computers/domains/entities"
+	"backend/internal/app/api/computers/domains/repositories"
 	"backend/internal/app/api/database"
 	"fmt"
 

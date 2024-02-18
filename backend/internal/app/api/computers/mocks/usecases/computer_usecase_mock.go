@@ -5,8 +5,8 @@
 package mock_usecases
 
 import (
-	entities "backend/internal/app/api/computers/domain/entities"
-	requests "backend/internal/app/api/computers/interface/requests"
+	entities "backend/internal/app/api/computers/domains/entities"
+	requests "backend/internal/app/api/computers/interfaces/requests"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"

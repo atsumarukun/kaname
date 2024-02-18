@@ -1,10 +1,10 @@
 package usecases
 
 import (
-	"backend/internal/app/api/computers/domain/clients"
-	"backend/internal/app/api/computers/domain/entities"
-	"backend/internal/app/api/computers/domain/repositories"
-	"backend/internal/app/api/computers/interface/requests"
+	"backend/internal/app/api/computers/domains/clients"
+	"backend/internal/app/api/computers/domains/entities"
+	"backend/internal/app/api/computers/domains/repositories"
+	"backend/internal/app/api/computers/interfaces/requests"
 	"backend/internal/app/api/database"
 	"fmt"
 	"net"
