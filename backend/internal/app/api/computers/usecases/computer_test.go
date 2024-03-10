@@ -5,7 +5,7 @@ import (
 	"backend/internal/app/api/computers/interfaces/requests"
 	mock_clients "backend/internal/app/api/computers/mocks/clients"
 	mock_repositories "backend/internal/app/api/computers/mocks/repositories"
-	"backend/internal/app/api/database"
+	"backend/internal/app/api/pkg/database"
 	"testing"
 
 	"github.com/golang/mock/gomock"

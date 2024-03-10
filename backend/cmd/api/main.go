@@ -1,8 +1,8 @@
 package main
 
 import (
-	"backend/internal/app/api/routes"
-	"backend/internal/app/api/validations"
+	"backend/internal/app/api/pkg/routes"
+	"backend/internal/app/api/pkg/validations"
 
 	"github.com/gin-gonic/gin/binding"
 )

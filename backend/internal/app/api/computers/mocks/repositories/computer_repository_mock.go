@@ -6,7 +6,7 @@ package mock_repositories
 
 import (
 	entities "backend/internal/app/api/computers/domains/entities"
-	database "backend/internal/app/api/database"
+	database "backend/internal/app/api/pkg/database"
 	reflect "reflect"
 
 	gomock "github.com/golang/mock/gomock"

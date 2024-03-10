@@ -5,7 +5,7 @@ import (
 	"backend/internal/app/api/computers/infrastructures/temporaries"
 	"backend/internal/app/api/computers/interfaces/handlers"
 	"backend/internal/app/api/computers/usecases"
-	"backend/internal/app/api/database"
+	"backend/internal/app/api/pkg/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mdlayher/wol"

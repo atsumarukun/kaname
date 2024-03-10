@@ -5,7 +5,7 @@ import (
 	"backend/internal/app/api/computers/domains/entities"
 	"backend/internal/app/api/computers/domains/repositories"
 	"backend/internal/app/api/computers/interfaces/requests"
-	"backend/internal/app/api/database"
+	"backend/internal/app/api/pkg/database"
 	"fmt"
 	"net"
 	"net/netip"

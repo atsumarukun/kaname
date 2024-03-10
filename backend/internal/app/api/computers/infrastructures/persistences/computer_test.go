@@ -2,7 +2,7 @@ package persistences
 
 import (
 	"backend/internal/app/api/computers/domains/entities"
-	"backend/internal/app/api/database"
+	"backend/internal/app/api/pkg/database"
 	"fmt"
 	"regexp"
 	"testing"

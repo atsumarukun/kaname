@@ -2,7 +2,7 @@ package repositories
 
 import (
 	"backend/internal/app/api/computers/domains/entities"
-	"backend/internal/app/api/database"
+	"backend/internal/app/api/pkg/database"
 
 	"gorm.io/gorm"
 )
